@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', Dashboard::class);
+
+Route::resource('transactions', TransactionController::class);
