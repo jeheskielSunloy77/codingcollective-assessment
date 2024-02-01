@@ -6,12 +6,9 @@ use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.guest')] class extends Component {
+new #[Layout('components.layouts.guest')] class extends Component {
     public LoginForm $form;
 
-    /**
-     * Handle an incoming authentication request.
-     */
     public function login(): void
     {
         $this->validate();
@@ -25,11 +22,8 @@ new #[Layout('layouts.guest')] class extends Component {
 }; ?>
 
 <div>
-    <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
     <form wire:submit="login" class="space-y-4">
-        <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input wire:model="form.email" id="email" class="block mt-1 w-full" type="email" name="email"
@@ -37,7 +31,6 @@ new #[Layout('layouts.guest')] class extends Component {
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Password -->
         <div>
             <x-input-label for="password" :value="__('Password')" />
 
@@ -46,7 +39,6 @@ new #[Layout('layouts.guest')] class extends Component {
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
         <div class="flex items-center justify-between">
             <label for="remember" class="inline-flex items-center">
                 <input wire:model="form.remember" id="remember" type="checkbox"
