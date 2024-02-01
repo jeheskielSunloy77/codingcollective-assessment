@@ -11,6 +11,8 @@ class TransactionController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', Transaction::class);
+
         $transactions = Transaction::with('user')->get();
         return response()->json([
             'status' => 1,
@@ -21,6 +23,8 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Transaction::class);
+
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
             'amount' => 'required|numeric|min:1',
@@ -45,6 +49,8 @@ class TransactionController extends Controller
 
     public function show(Transaction $transaction)
     {
+        $this->authorize('view', $transaction);
+
         return response()->json([
             'status' => 1,
             'message' => 'Transaction Detail',
@@ -54,6 +60,8 @@ class TransactionController extends Controller
 
     public function update(Request $request, Transaction $transaction)
     {
+        $this->authorize('update', $transaction);
+
         $validator = Validator::make($request->all(), [
             'amount' => 'numeric|min:1',
             'type' => 'in:withdraw,deposit'
@@ -78,6 +86,8 @@ class TransactionController extends Controller
 
     public function destroy(Transaction $transaction)
     {
+        $this->authorize('delete', $transaction);
+
         $transaction->delete();
         return response()->json([
             'status' => 1,

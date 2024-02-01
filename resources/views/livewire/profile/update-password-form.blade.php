@@ -13,6 +13,9 @@ new class extends Component {
 
     public function updatePassword(): void
     {
+        $user = Auth::user();
+        $this->authorize('update', $user);
+
         try {
             $validated = $this->validate([
                 'current_password' => ['required', 'string', 'current_password'],
@@ -24,7 +27,7 @@ new class extends Component {
             throw $e;
         }
 
-        Auth::user()->update([
+        $user->update([
             'password' => Hash::make($validated['password']),
         ]);
 

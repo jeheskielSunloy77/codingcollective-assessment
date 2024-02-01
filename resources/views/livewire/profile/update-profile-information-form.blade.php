@@ -20,6 +20,7 @@ new class extends Component {
     public function updateProfileInformation(): void
     {
         $user = Auth::user();
+        $this->authorize('update', request()->user());
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -40,6 +41,7 @@ new class extends Component {
     public function sendVerification(): void
     {
         $user = Auth::user();
+        $this->authorize('update', $user);
 
         if ($user->hasVerifiedEmail()) {
             $path = session('url.intended', RouteServiceProvider::HOME);

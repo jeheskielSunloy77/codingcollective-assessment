@@ -37,6 +37,8 @@ class Dashboard extends Component
 
     public function createTransaction(string $type)
     {
+        $this->authorize('create', Transaction::class);
+
         if ($type !== 'deposit' && $type !== 'withdraw') {
             $this->addError('type', 'Invalid transaction type');
             return;
@@ -64,6 +66,8 @@ class Dashboard extends Component
 
     public function deleteTransaction(Transaction $transaction)
     {
+        $this->authorize('delete', $transaction);
+
         $transaction->delete();
         $this->mount();
     }
