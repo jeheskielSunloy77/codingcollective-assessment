@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Transaction;
-use App\Models\User;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -15,8 +14,12 @@ class Dashboard extends Component
     public $depositAmount;
     public $withdrawAmount;
 
+    private $userId;
+
     public function mount()
     {
+        $this->userId = request()->user()->id;
+
         if (request()->has('q')) {
             $this->search = request('q');
 
@@ -25,7 +28,9 @@ class Dashboard extends Component
                 ->orWhere('amount', 'like', '%' . $this->search . '%')
                 ->get();
         } else {
-            $this->transactions = Transaction::with('user')->get()->sortByDesc('created_at');
+            $this->transactions = Transaction::with('user')
+                ->where('user_id', $this->userId)
+                ->get()->sortByDesc('created_at');
         }
 
         $deposits = $this->transactions->where('type', 'deposit')->sum('amount');
@@ -52,7 +57,7 @@ class Dashboard extends Component
         ]);
 
         Transaction::create([
-            'user_id' => User::first()->id,
+            'user_id' => $this->userId,
             'amount' => $isDeposit ? $this->depositAmount : $this->withdrawAmount,
             'type' => $type,
         ]);
@@ -69,6 +74,6 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.dashboard');
+        return view('livewire.pages.dashboard');
     }
 }

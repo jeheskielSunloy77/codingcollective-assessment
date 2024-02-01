@@ -2,15 +2,22 @@
 
 namespace App\Livewire;
 
-use App\Models\User;
+use App\Livewire\Actions\Logout;
 use Livewire\Component;
 
 class Avatar extends Component
 {
+    public function logout(Logout $logout): void
+    {
+        $logout();
+
+        $this->redirect('/login', navigate: true);
+    }
+
     public function render()
     {
-        return view('livewire.avatar', [
-            'user' => User::query()->first(),
+        return view('livewire.layout.avatar', [
+            'user' => request()->user(),
         ]);
     }
 }

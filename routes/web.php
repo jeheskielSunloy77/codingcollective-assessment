@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\TransactionController;
 use App\Livewire\Dashboard;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Dashboard::class);
+Route::get('/', Dashboard::class)
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
-Route::resource('transactions', TransactionController::class);
+require __DIR__ . '/auth.php';

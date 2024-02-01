@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             } else {
                 User::factory()->create([
                     'id' => $id,
+                    'avatarUrl' => 'https://api.dicebear.com/7.x/adventurer/svg?seed=' . fake()->numberBetween(1, 1000),
                 ]);
             }
         }
