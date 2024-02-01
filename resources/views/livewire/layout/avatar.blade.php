@@ -1,8 +1,30 @@
+<?php
+
+use App\Livewire\Actions\Logout;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Volt\Component;
+
+new class extends Component {
+    public $user;
+
+    public function mount()
+    {
+        $this->user = request()->user();
+    }
+
+    public function logout(Logout $logout)
+    {
+        $logout();
+
+        $this->redirect('/login', navigate: true);
+    }
+}; ?>
+
 <x-dropdown align="right" width="48">
     <x-slot name="trigger">
         <button>
             <img class="w-10 h-10 rounded-full border p-0.5 dark:border-gray-600 hover:opacity-80 transition-opacity"
-                src="{{ $user->avatarUrl ?? 'https://api.dicebear.com/7.x/adventurer/svg?scale=120&seed=' . $user->name }}"
+                src="{{ $user->avatarUrl ?? 'https://api.dicebear.com/7.x/adventurer/svg?scale=120&seed=' . $user->id }}"
                 alt="User Avatar">
         </button>
     </x-slot>
@@ -29,8 +51,20 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/profile"
+                        class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                        Profile
+                    </a>
+                </li>
+                <li>
                     <a href="#"
                         class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
