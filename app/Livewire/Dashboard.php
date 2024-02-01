@@ -14,12 +14,8 @@ class Dashboard extends Component
     public $depositAmount;
     public $withdrawAmount;
 
-    private $userId;
-
     public function mount()
     {
-        $this->userId = request()->user()->id;
-
         if (request()->has('q')) {
             $this->search = request('q');
 
@@ -29,7 +25,7 @@ class Dashboard extends Component
                 ->get();
         } else {
             $this->transactions = Transaction::with('user')
-                ->where('user_id', $this->userId)
+                ->where('user_id', request()->user()->id)
                 ->get()->sortByDesc('created_at');
         }
 
@@ -57,7 +53,7 @@ class Dashboard extends Component
         ]);
 
         Transaction::create([
-            'user_id' => $this->userId,
+            'user_id' => request()->user()->id,
             'amount' => $isDeposit ? $this->depositAmount : $this->withdrawAmount,
             'type' => $type,
         ]);
