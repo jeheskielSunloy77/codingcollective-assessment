@@ -23,9 +23,9 @@
                             <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
                         </svg><span class="">Payment App</span></a></div>
                 <div class="flex-1 overflow-auto py-2">
-                    <nav class="grid items-start px-4 text-sm font-medium"><a
-                            class="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900  transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-                            href="#">
+                    <nav class="grid items-start px-4 text-sm font-medium gap-2">
+                        <a class="flex items-center gap-3 rounded-md px-3 py-2 transition-colors {{ request()->is('/') ? 'bg-black text-white dark:bg-gray-800 dark:text-gray-50 hover:bg-black/90' : 'text-gray-900 dark:text-gray-50 hover:bg-gray-200' }}"
+                            href="/" wire:navigate>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -33,7 +33,17 @@
                             </svg>
 
                             Dashboard
-                        </a></nav>
+                        </a>
+                        <a class="flex items-center gap-3 rounded-md px-3 py-2 transition-colors {{ request()->is('profile') ? 'bg-black text-white dark:bg-gray-800 dark:text-gray-50 hover:bg-black/90' : 'text-gray-900 dark:text-gray-50 hover:bg-gray-200' }}"
+                            href="/profile" wire:navigate>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                            </svg>
+                            Profile
+                        </a>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -60,7 +70,7 @@
                     </form>
                 </div>
                 <div class="flex items-center gap-4">
-                    <livewire:avatar />
+                    <livewire:layout.avatar />
                 </div>
             </header>
             {{ $slot }}
