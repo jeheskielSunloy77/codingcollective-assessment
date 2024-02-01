@@ -4,24 +4,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>{{ $title ?? 'Page Title' }}</title>
-    @vite('resources/css/app.css')
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
-
     <div class="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr]">
         <div class="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
             <div class="flex h-full max-h-screen flex-col gap-2">
-                <div class="flex h-[60px] items-center border-b px-6"><a class="flex items-center gap-2 font-semibold"
-                        href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
-                            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
-                            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
-                            <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
-                        </svg><span class="">Payment App</span></a></div>
+                <div class="flex h-[60px] items-center border-b px-6">
+                    <a class="flex items-center gap-2 font-semibold" href="/">
+                        <x-application-logo class="h-6 w-6" />
+                        <span>Payment App</span>
+                    </a>
+                </div>
                 <div class="flex-1 overflow-auto py-2">
                     <nav class="grid items-start px-4 text-sm font-medium gap-2">
                         <a class="flex items-center gap-3 rounded-md px-3 py-2 transition-colors {{ request()->is('/') ? 'bg-black text-white dark:bg-gray-800 dark:text-gray-50 hover:bg-black/90' : 'text-gray-900 dark:text-gray-50 hover:bg-gray-200' }}"
@@ -57,16 +55,16 @@
                         <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
                     </svg><span class="sr-only">Home</span></a>
                 <div class="w-full flex-1">
-                    <form>
-                        <div class="relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </svg><input
-                                class="flex h-10 rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full bg-white shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3 dark:bg-gray-950"
-                                placeholder="Search for anything" type="search"></div>
+                    <form class="relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </svg>
+                        <x-text-input class="pl-8 md:w-2/3 lg:w-1/3" placeholder="Search for something" type="search"
+                            name="search" />
                     </form>
                 </div>
                 <div class="flex items-center gap-4">
@@ -76,7 +74,6 @@
             {{ $slot }}
         </div>
     </div>
-
 </body>
 
 </html>
