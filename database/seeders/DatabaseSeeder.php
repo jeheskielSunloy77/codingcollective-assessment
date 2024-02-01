@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
                     'email' => 'admin@admin.com',
                     'avatarUrl' => 'https://api.dicebear.com/7.x/adventurer/svg?seed=' . fake()->numberBetween(1, 1000),
                     'password' => 'admin',
+                    'role' => 'admin'
                 ]);
             } else {
                 User::factory()->create([
