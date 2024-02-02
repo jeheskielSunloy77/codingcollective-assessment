@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TransactionController;
+use App\Http\Middleware\UsernameOnAuthHeader;
 use App\Livewire\Dashboard;
 use App\Livewire\Profile;
 use Illuminate\Support\Facades\Route;
@@ -16,14 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Dashboard::class)
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'verified', UsernameOnAuthHeader::class])->group(function () {
+    Route::get('/', Dashboard::class)->name('dashboard');
+    Route::get('/profile', Profile::class)->name('profile');
 
-Route::get('/profile', Profile::class)
-    ->middleware(['auth', 'verified'])
-    ->name('profile');
+    Route::resource('transactions', TransactionController::class);
+});
 
-Route::resource('transactions', TransactionController::class)
-    ->middleware(['auth', 'verified']);
 require __DIR__ . '/auth.php';
