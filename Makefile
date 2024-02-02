@@ -3,3 +3,5 @@ run:
 
 stop:
 	./vendor/bin/sail down
+
+restart: stop run
