@@ -3,6 +3,7 @@
 use App\Http\Controllers\TransactionController;
 use App\Http\Middleware\UsernameOnAuthHeader;
 use App\Livewire\Dashboard;
+use App\Livewire\Features;
 use App\Livewire\Profile;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'verified', UsernameOnAuthHeader::class])->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/profile', Profile::class)->name('profile');
+    Route::get('/features', Features::class)->name('features');
 
     Route::resource('transactions', TransactionController::class);
 });

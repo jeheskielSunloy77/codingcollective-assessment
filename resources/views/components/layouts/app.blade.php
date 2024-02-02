@@ -42,6 +42,16 @@
                             </svg>
                             Profile
                         </a>
+                        <a class="flex items-center gap-3 rounded-md px-3 py-2 transition-colors {{ request()->is('features') ? 'bg-black text-white dark:bg-white dark:text-black hover:bg-black/90' : 'text-gray-900 dark:text-gray-50 hover:bg-gray-200 dark:hover:bg-gray-900' }}"
+                            href="/features" wire:navigate>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+
+                            </svg>
+                            Features
+                        </a>
                     </nav>
                 </div>
             </div>
@@ -49,13 +59,15 @@
         <div class="flex flex-col">
             <header
                 class="flex h-14 lg:h-[60px] items-center gap-4 border-b dark:border-b-gray-800 bg-gray-100/40 dark:bg-[#090909] px-6">
-                <a class="lg:hidden" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                <a class="lg:hidden" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="h-6 w-6">
                         <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
                         <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
                         <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
-                    </svg><span class="sr-only">Home</span></a>
+                    </svg>
+                    <span class="sr-only">Home</span></a>
                 <div class="w-full flex-1">
                     <form class="relative">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
