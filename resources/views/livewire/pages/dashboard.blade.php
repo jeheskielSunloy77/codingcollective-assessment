@@ -6,7 +6,7 @@
                     <div class="space-y-2">
                         <x-input-label for="deposit-amount" value="{{ __('Amount') }}" />
                         <x-text-input wire:model="depositAmount" id="deposit-amount" type="number" min="1"
-                            step=".01" placeholder="Enter deposit amount" required />
+                            max="9999999999" step=".01" placeholder="Enter deposit amount" required />
                         <x-input-error :messages="$errors->get('depositAmount')" />
                     </div>
                     <x-primary-button type="submit" class="w-full">
@@ -19,7 +19,7 @@
                     <div class="space-y-2">
                         <x-input-label for="withdraw-amount" value="{{ __('Amount') }}" />
                         <x-text-input wire:model="withdrawAmount" id="withdraw-amount" type="number" min="1"
-                            step=".01" placeholder="Enter withdraw amount" required />
+                            max="9999999999" step=".01" placeholder="Enter withdraw amount" required />
                         <x-input-error :messages="$errors->get('withdrawAmount')" />
                     </div>
                     <x-primary-button type="submit" class="w-full">

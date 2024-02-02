@@ -16,7 +16,8 @@ return new class extends Migration
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
             $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->float('amount')->unsigned()->default(1);
+            $table->decimal('amount', 12, 2, true)
+                ->default(1);
             $table->enum('type', ['withdraw', 'deposit']);
             $table->timestamps();
         });

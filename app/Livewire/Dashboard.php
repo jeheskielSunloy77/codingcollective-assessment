@@ -54,7 +54,7 @@ class Dashboard extends Component
         $isDeposit = $type === 'deposit';
 
         $this->validateOnly($typeField, [
-            $typeField => 'required|numeric|min:1' . ($isDeposit ? '' : '|max:' .  $this->balance),
+            $typeField => 'required|numeric|min:1|max:' . ($isDeposit ? '9999999999' :  $this->balance),
         ], [
             $typeField . '.min' => 'The amount must be at least Rp. 1.00!',
             $typeField . '.max' => 'The amount must not be greater than your balance!',
