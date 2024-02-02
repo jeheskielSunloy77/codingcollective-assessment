@@ -6,9 +6,11 @@ use Livewire\Volt\Component;
 
 new class extends Component {
     public $user;
+    public $theme;
 
     public function mount()
     {
+        $this->theme = session('theme');
         $this->user = request()->user();
     }
 
@@ -17,6 +19,12 @@ new class extends Component {
         $logout();
 
         $this->redirect('/login', navigate: true);
+    }
+
+    public function toggleTheme()
+    {
+        session(['theme' => $this->theme === 'light' ? 'dark' : 'light']);
+        $this->redirect(request()->header('referer'));
     }
 }; ?>
 
@@ -29,7 +37,7 @@ new class extends Component {
         </button>
     </x-slot>
     <x-slot name="content">
-        <div class="divide-y divide-gray-100 dark:bg-gray-700 dark:divide-gray-600">
+        <div class="divide-y divide-gray-100 dark:bg-black dark:divide-gray-900">
             <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                 <div>
                     {{ $user->name }}
@@ -41,7 +49,7 @@ new class extends Component {
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                 <li>
                     <a href="/"
-                        class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#090909] dark:hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -52,7 +60,7 @@ new class extends Component {
                 </li>
                 <li>
                     <a href="/profile"
-                        class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#090909] dark:hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -62,27 +70,27 @@ new class extends Component {
                     </a>
                 </li>
                 <li>
-                    <a href="#"
-                        class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-
+                    <button wire:click="toggleTheme"
+                        class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#090909] dark:hover:text-white w-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                                d="{{ $theme === 'light' ? 'M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z' : 'M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z' }}" />
                         </svg>
-                        Dark Mode
-                    </a>
+                        {{ $theme === 'light' ? 'Dark' : 'Light' }} Mode
+                    </button>
                 </li>
             </ul>
             <div class="py-1">
                 <button wire:click="logout"
-                    class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white w-full">
+                    class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-[#090909] dark:text-gray-200 dark:hover:text-white w-full">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
                     </svg>
-                    Sign out</button>
+                    Sign out
+                </button>
             </div>
         </div>
     </x-slot>

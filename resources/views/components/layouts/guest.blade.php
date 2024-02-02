@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="{{ session('theme') }}">
 
 <head>
     <meta charset="utf-8">
@@ -8,18 +8,19 @@
     <title>{{ $title ?? 'Page Title' }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="shortcut icon" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-50 dark:bg-gray-900">
+<body class="font-sans text-black dark:text-white antialiased">
+    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-50 dark:bg-[#090909]">
         <div>
             <a href="/" wire:navigate>
                 <x-application-logo class="w-14 h-14" />
             </a>
         </div>
         <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg border bg-card text-card-foreground shadow-sm">
+            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-black overflow-hidden sm:rounded-lg border dark:border-gray-900 bg-card text-card-foreground shadow-sm">
             {{ $slot }}
         </div>
     </div>

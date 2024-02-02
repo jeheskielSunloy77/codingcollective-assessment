@@ -11,7 +11,6 @@ use Livewire\Attributes\Locked;
 use Livewire\Volt\Component;
 
 new #[Layout('components.layouts.guest')] class extends Component {
-{
     #[Locked]
     public string $token = '';
     public string $email = '';
@@ -33,17 +32,16 @@ new #[Layout('components.layouts.guest')] class extends Component {
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $status = Password::reset(
-            $this->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user) {
-                $user->forceFill([
+        $status = Password::reset($this->only('email', 'password', 'password_confirmation', 'token'), function ($user) {
+            $user
+                ->forceFill([
                     'password' => Hash::make($this->password),
                     'remember_token' => Str::random(60),
-                ])->save();
+                ])
+                ->save();
 
-                event(new PasswordReset($user));
-            }
-        );
+            event(new PasswordReset($user));
+        });
 
         if ($status != Password::PASSWORD_RESET) {
             $this->addError('email', __($status));

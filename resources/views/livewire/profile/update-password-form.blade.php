@@ -40,11 +40,11 @@ new class extends Component {
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Update Password') }}
+            Update Password
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __('Ensure your account is using a long, random password to stay secure.') }}
+            Ensure your account is using a long, random password to stay secure.
         </p>
     </header>
 
@@ -73,7 +73,9 @@ new class extends Component {
         </div>
 
         <div class="flex items-center flex-col gap-4">
-            <x-primary-button class="w-full ">{{ __('Save') }}</x-primary-button>
+            <x-primary-button class="w-full ">
+                Update Password
+            </x-primary-button>
             <x-action-message on="password-updated" class="w-full">
                 Your input is saved successfully!
             </x-action-message>

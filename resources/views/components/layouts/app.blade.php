@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="{{ session('theme') }}">
 
 <head>
     <meta charset="utf-8">
@@ -7,14 +7,15 @@
     <title>{{ $title ?? 'Page Title' }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="shortcut icon" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="text-black dark:text-white">
     <div class="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr]">
-        <div class="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
+        <div class="hidden border-r dark:border-r-gray-800 bg-gray-100/40 dark:bg-[#090909] lg:block">
             <div class="flex h-full max-h-screen flex-col gap-2">
-                <div class="flex h-[60px] items-center border-b px-6">
+                <div class="flex h-[60px] items-center border-b px-6 dark:border-b-gray-800">
                     <a class="flex items-center gap-2 font-semibold" href="/">
                         <x-application-logo class="h-6 w-6" />
                         <span>Payment App</span>
@@ -22,7 +23,7 @@
                 </div>
                 <div class="flex-1 overflow-auto py-2">
                     <nav class="grid items-start px-4 text-sm font-medium gap-2">
-                        <a class="flex items-center gap-3 rounded-md px-3 py-2 transition-colors {{ request()->is('/') ? 'bg-black text-white dark:bg-gray-800 dark:text-gray-50 hover:bg-black/90' : 'text-gray-900 dark:text-gray-50 hover:bg-gray-200' }}"
+                        <a class="flex items-center gap-3 rounded-md px-3 py-2 transition-colors {{ request()->is('/') ? 'bg-black text-white dark:bg-white dark:text-black hover:bg-black/90' : 'text-gray-900 dark:text-gray-50 hover:bg-gray-200 dark:hover:bg-gray-900' }}"
                             href="/" wire:navigate>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -32,7 +33,7 @@
 
                             Dashboard
                         </a>
-                        <a class="flex items-center gap-3 rounded-md px-3 py-2 transition-colors {{ request()->is('profile') ? 'bg-black text-white dark:bg-gray-800 dark:text-gray-50 hover:bg-black/90' : 'text-gray-900 dark:text-gray-50 hover:bg-gray-200' }}"
+                        <a class="flex items-center gap-3 rounded-md px-3 py-2 transition-colors {{ request()->is('profile') ? 'bg-black text-white dark:bg-white dark:text-black hover:bg-black/90' : 'text-gray-900 dark:text-gray-50 hover:bg-gray-200 dark:hover:bg-gray-900' }}"
                             href="/profile" wire:navigate>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -46,8 +47,9 @@
             </div>
         </div>
         <div class="flex flex-col">
-            <header class="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40"><a
-                    class="lg:hidden" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+            <header
+                class="flex h-14 lg:h-[60px] items-center gap-4 border-b dark:border-b-gray-800 bg-gray-100/40 dark:bg-[#090909] px-6">
+                <a class="lg:hidden" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
                         <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>

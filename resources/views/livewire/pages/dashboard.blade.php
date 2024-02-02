@@ -1,4 +1,4 @@
-<main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+<main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 dark:bg-black">
     <div class="flex flex-col md:grid md:grid-cols-2 gap-6">
         <div class="flex flex-col gap-6">
             <x-dashboard.card title="Deposit">
@@ -34,7 +34,8 @@
                     <h3 class="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
                         Rp. {{ number_format($balance, 2) }}
                     </h3>
-                    <p class="text-sm font-medium leading-none text-muted-foreground">Current Balance</p>
+                    <p class="text-sm font-medium leading-none text-muted-foreground text-gray-800 dark:text-gray-200">
+                        Current Balance</p>
                 </div>
             </x-dashboard.card>
             <x-dashboard.card title="Transaction History">
@@ -50,22 +51,23 @@
                         value="{{ $search }}" />
                 </form>
                 <div class="relative w-full overflow-auto max-h-[500px]">
-                    <table class="w-full caption-bottom text-sm">
-                        <thead class="[&amp;_tr]:border-b">
-                            <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b dark:border-b-gray-900">
+                                <th class="h-12 px-4 text-left align-middle font-medium">
                                     Type</th>
-                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                                <th class="h-12 px-4 text-left align-middle font-medium">
                                     Amount</th>
-                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                                <th class="h-12 px-4 text-left align-middle font-medium">
                                     Date</th>
-                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                                <th class="h-12 px-4 text-left align-middle font-medium">
                                     Actions</th>
                             </tr>
                         </thead>
                         <tbody class="[&amp;_tr:last-child]:border-0">
                             @foreach ($transactions as $transaction)
-                                <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                                <tr
+                                    class="border-b dark:border-b-gray-900 transition-colors hover:bg-gray-50 dark:hover:bg-[#090909]">
                                     <td class="p-4 align-middle capitalize">
                                         {{ $transaction->type }}
                                     </td>
