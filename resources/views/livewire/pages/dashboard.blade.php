@@ -5,8 +5,12 @@
                 <form wire:submit="createTransaction('deposit')" class="space-y-4">
                     <div class="space-y-2">
                         <x-input-label for="deposit-amount" value="{{ __('Amount') }}" />
-                        <x-text-input wire:model="depositAmount" id="deposit-amount" type="number" min="1"
-                            max="9999999999" step=".01" placeholder="Enter deposit amount" required />
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2.5 text-sm font-medium">Rp.</span>
+                            <x-text-input wire:model="depositAmount" id="deposit-amount" class="pl-9" type="number"
+                                min="1" max="9999999999" step=".01" placeholder="Enter deposit amount"
+                                required />
+                        </div>
                         <x-input-error :messages="$errors->get('depositAmount')" />
                     </div>
                     <x-primary-button type="submit" class="w-full">
@@ -18,8 +22,12 @@
                 <form class="space-y-4" wire:submit="createTransaction('withdraw')">
                     <div class="space-y-2">
                         <x-input-label for="withdraw-amount" value="{{ __('Amount') }}" />
-                        <x-text-input wire:model="withdrawAmount" id="withdraw-amount" type="number" min="1"
-                            max="9999999999" step=".01" placeholder="Enter withdraw amount" required />
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2.5 text-sm font-medium">Rp.</span>
+                            <x-text-input wire:model="withdrawAmount" class="pl-9" id="withdraw-amount" type="number"
+                                min="1" max="9999999999" step=".01" placeholder="Enter withdraw amount"
+                                required />
+                        </div>
                         <x-input-error :messages="$errors->get('withdrawAmount')" />
                     </div>
                     <x-primary-button type="submit" class="w-full">
@@ -72,7 +80,9 @@
                                         {{ $transaction->type }}
                                     </td>
                                     <td class="p-4 align-middle">
-                                        Rp. {{ number_format($transaction->amount, 2) }}
+                                        {{ $transaction->type === 'deposit' ? '+' : '-' }}
+                                        Rp.
+                                        {{ number_format($transaction->amount, 2) }}
                                     </td>
                                     <td class="p-4 align-middle">
                                         {{ $transaction->created_at->format('d M Y, H:i') }}

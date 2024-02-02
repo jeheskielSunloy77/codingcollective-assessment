@@ -36,7 +36,12 @@ new class extends Component {
                 </svg>
             </button>
         </h2>
-        <div x-show="openTab === {{ $loop->index }}" aria-labelledby="accordion-collapse-heading-1">
+        <div x-show="openTab === {{ $loop->index }}" aria-labelledby="accordion-collapse-heading-1"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 transform scale-95"
+            x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-75"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-95">
             <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-800 dark:bg-[#090909]">
                 <p class="text-gray-500 dark:text-gray-400">
                     {!! $tab['content'] !!}</p>
