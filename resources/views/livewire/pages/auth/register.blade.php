@@ -17,17 +17,18 @@ new #[Layout('components.layouts.guest')] #[Title('User Registration | Payment A
     public $password_confirmation = '';
     public $is_admin = false;
 
-    public function register(): void
+    public function register()
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'is_admin' => 'boolean',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
 
-        event(new Registered(($user = User::create($validated))));
+        event(new Registered(($user = User::create(array_merge($validated, ['role' => $this->is_admin ? 'admin' : 'user'])))));
 
         Auth::login($user);
 
@@ -69,6 +70,14 @@ new #[Layout('components.layouts.guest')] #[Title('User Registration | Payment A
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
+        <label for="is_admin" class="inline-flex items-center">
+            <input wire:model="is_admin" id="is_admin" type="checkbox"
+                class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-black shadow-sm focus:ring-black dark:focus:ring-white dark:focus:ring-offset-gray-800"
+                name="is_admin">
+            <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">
+                Is Admin
+            </span>
+        </label>
 
         <x-primary-button class="inline-flex items-center justify-center w-full">
             {{ __('Register') }}

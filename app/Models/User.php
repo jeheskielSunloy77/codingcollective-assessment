@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'avatarUrl'
     ];
     protected $primaryKey = 'id';
     protected $keyType = 'string';
