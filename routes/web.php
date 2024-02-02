@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TransactionController;
 use App\Livewire\Dashboard;
 use App\Livewire\Profile;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,6 @@ Route::get('/profile', Profile::class)
     ->middleware(['auth', 'verified'])
     ->name('profile');
 
+Route::resource('transactions', TransactionController::class)
+    ->middleware(['auth', 'verified']);
 require __DIR__ . '/auth.php';
