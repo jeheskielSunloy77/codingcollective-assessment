@@ -5,8 +5,9 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Livewire\Attributes\Title;
 
-new #[Layout('components.layouts.guest')] class extends Component {
+new #[Layout('components.layouts.guest')] #[Title('User Login | Payment App')] class extends Component {
     public LoginForm $form;
 
     public function login(): void

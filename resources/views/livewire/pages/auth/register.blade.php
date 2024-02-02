@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Livewire\Attributes\Title;
 
-new #[Layout('components.layouts.guest')] class extends Component {
-    public string $name = '';
-    public string $email = '';
-    public string $password = '';
-    public string $password_confirmation = '';
+new #[Layout('components.layouts.guest')] #[Title('User Registration | Payment App')] class extends Component {
+    public $name = '';
+    public $email = '';
+    public $password = '';
+    public $password_confirmation = '';
+    public $is_admin = false;
 
     public function register(): void
     {

@@ -3,7 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\Transaction;
+use Livewire\Attributes\Title;
 use Livewire\Component;
+
+#[Title('Dashboard | Payment App')]
 
 class Dashboard extends Component
 {

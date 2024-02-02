@@ -3,7 +3,10 @@
 namespace App\Livewire;
 
 use Livewire\Attributes\Locked;
+use Livewire\Attributes\Title;
 use Livewire\Component;
+
+#[Title('Project Features | Payment App')]
 
 class Features extends Component
 {

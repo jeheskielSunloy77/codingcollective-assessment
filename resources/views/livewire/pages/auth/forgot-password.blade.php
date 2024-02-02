@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Password;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Livewire\Attributes\Title;
 
-new #[Layout('components.layouts.guest')] class extends Component {
+new #[Layout('components.layouts.guest')] #[Title('Forgot Password | Payment App')] class extends Component {
     public string $email = '';
 
     public function sendPasswordResetLink(): void
