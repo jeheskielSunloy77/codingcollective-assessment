@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Cache::flush();
+
         User::query()->delete();
         $userIds = [];
 

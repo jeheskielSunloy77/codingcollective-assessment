@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -22,14 +23,16 @@ class Dashboard extends Component
         if (request()->has('q')) {
             $this->search = request('q');
 
-            $this->transactions = Transaction::with('user')
+            $this->transactions =
+                request()->user()->transactions()
                 ->where('type', 'like', '%' . $this->search . '%')
                 ->orWhere('amount', 'like', '%' . $this->search . '%')
                 ->get();
         } else {
-            $this->transactions = Transaction::with('user')
-                ->where('user_id', request()->user()->id)
-                ->get()->sortByDesc('created_at');
+            $this->transactions =
+                Cache::remember('transaction:user:' . request()->user()->id, 60, function () {
+                    return request()->user()->transactions()->get()->sortByDesc('created_at');
+                });
         }
 
         $deposits = $this->transactions->where('type', 'deposit')->sum('amount');
@@ -57,11 +60,17 @@ class Dashboard extends Component
             $typeField . '.max' => 'The amount must not be greater than your balance!',
         ]);
 
-        Transaction::create([
-            'user_id' => request()->user()->id,
+        $userId = request()->user()->id;
+
+        $transaction = Transaction::create([
+            'user_id' => $userId,
             'amount' => $isDeposit ? $this->depositAmount : $this->withdrawAmount,
             'type' => $type,
         ]);
+
+        Cache::put('transaction:' . $transaction->id, $transaction, 60);
+        Cache::forget('transaction');
+        Cache::forget('transaction:user:' . $userId);
 
         $this->mount();
         $this->reset([$typeField]);
@@ -70,6 +79,10 @@ class Dashboard extends Component
     public function deleteTransaction(Transaction $transaction)
     {
         $this->authorize('delete', $transaction);
+
+        Cache::forget('transaction');
+        Cache::forget('transaction:' . $transaction->id);
+        Cache::forget('transaction:user:' . $transaction->user_id);
 
         $transaction->delete();
         $this->mount();

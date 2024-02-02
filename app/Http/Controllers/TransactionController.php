@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -13,11 +14,19 @@ class TransactionController extends Controller
     {
         $this->authorize('viewAny', Transaction::class);
 
-        $transactions = Transaction::with('user')->get();
+        $isCached = true;
+        $transactions = Cache::get('transaction');
+        if (!$transactions) {
+            $isCached = false;
+            $transactions = Transaction::with('user')->get();
+            Cache::put('transaction', $transactions, 60);
+        }
+
         return response()->json([
             'status' => 1,
             'message' => 'Transaction List',
-            'data' => $transactions
+            'data' => $transactions,
+            'cache' => $isCached ? 'hit' : 'miss'
         ]);
     }
 
@@ -40,21 +49,34 @@ class TransactionController extends Controller
         }
 
         $transaction = Transaction::create($validator->validated());
+
+        Cache::forget('transaction');
+        Cache::add('transaction:' . $transaction->id, $transaction, 60);
+
         return response()->json([
             'status' => 1,
             'message' => 'Transaction Stored',
-            'data' => $transaction
+            'data' => $transaction,
         ]);
     }
 
-    public function show(Transaction $transaction)
+    public function show(string $id)
     {
+        $isCached = true;
+        $transaction = Cache::get('transaction:' . $id);
+        if (!$transaction) {
+            $isCached = false;
+            $transaction = Transaction::with('user')->find($id);
+            Cache::put('transaction:' . $id, $transaction, 60);
+        }
+
         $this->authorize('view', $transaction);
 
         return response()->json([
             'status' => 1,
             'message' => 'Transaction Detail',
-            'data' => $transaction
+            'data' => $transaction,
+            'cache' => $isCached ? 'hit' : 'miss'
         ]);
     }
 
@@ -77,6 +99,9 @@ class TransactionController extends Controller
 
         $transaction->update($validator->validated());
 
+        Cache::forget('transaction');
+        Cache::put('transaction:' . $transaction->id, $transaction, 10);
+
         return response()->json([
             'status' => 1,
             'message' => 'Transaction Updated',
@@ -89,6 +114,10 @@ class TransactionController extends Controller
         $this->authorize('delete', $transaction);
 
         $transaction->delete();
+
+        Cache::forget('transaction');
+        Cache::forget('transaction:' . $transaction->id);
+
         return response()->json([
             'status' => 1,
             'message' => 'Transaction Deleted',

@@ -81,6 +81,10 @@ class Features extends Component
         [
             'title' => 'Email Notification',
             'content' => 'Added email notification system for user authentication and more. Please add your email credentials on <i class="text-gray-800 dark:text-gray-200">.env</i> like file to use the email notification.',
+        ],
+        [
+            'title' => 'Caching',
+            'content' => 'Using <strong class="text-gray-800 dark:text-gray-200">Redis</strong> for caching layer on the <strong class="text-gray-800 dark:text-gray-200">controller</strong> and <strong class="text-gray-800 dark:text-gray-200">livewire actions</strong>. Check out the caching on <i class="text-gray-800 dark:text-gray-200">app/Http/Controllers/TransactionController.php</i> and <i class="text-gray-800 dark:text-gray-200">app/Livewire/Dashboard.php</i>',
         ]
     ];
 
